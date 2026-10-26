@@ -13,6 +13,7 @@ import { kitchenPage } from './views/kitchen.js';
 import { loginPage } from './views/login.js';
 import { dashboardPage } from './views/admin/dashboard.js';
 import { ordersPage } from './views/admin/orders.js';
+import { adminMenuPage } from './views/admin/menu.js';
 
 addRoute('/', landing);
 addRoute('/table/:n', menuPage);
@@ -22,6 +23,7 @@ addRoute('/kitchen', kitchenPage);
 addRoute('/login', loginPage);
 addRoute('/admin', dashboardPage);
 addRoute('/admin/orders', ordersPage);
+addRoute('/admin/menu', adminMenuPage);
 
 subscribe(() => refresh());
 startChannel();
