@@ -1,0 +1,130 @@
+/* Nasi 5 Minit — customer pages: landing, menu, cart sheet, order status, today. */
+
+/* ---------- public header + footer ---------- */
+.public-nav { display: flex; gap: 18px; }
+.public-nav a {
+  color: var(--on-brand);
+  font-family: var(--font-sign);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1rem;
+}
+.public-footer { border-top: 1px solid var(--rule); background: var(--paper); margin-top: 24px; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 20px; padding-bottom: 20px; }
+.footer-inner p { margin: 0; color: var(--muted); font-size: 0.9rem; max-width: 640px; }
+.footer-inner .btn { white-space: nowrap; flex: none; }
+
+.red { color: var(--enamel-red); }
+.lead { font-size: 1.1rem; color: var(--ink-soft); max-width: 46ch; }
+.sign-title {
+  font-family: var(--font-sign);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+}
+.eyebrow.on-dark { color: var(--turmeric); }
+.desktop-only { display: none; }
+@media (min-width: 1024px) { .desktop-only { display: inline-flex; } }
+.btn-outline-light { background: transparent; color: var(--on-brand); border-color: rgba(255, 255, 255, 0.7); }
+.btn-outline-light:hover { background: rgba(255, 255, 255, 0.12); }
+
+/* ---------- landing hero ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding-top: 28px;
+  padding-bottom: 28px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .hero { grid-template-columns: 1fr 1.15fr; gap: 40px; padding-top: 48px; padding-bottom: 48px; }
+}
+.hero-copy .row { margin-top: 8px; }
+.hero-live {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 18px; color: var(--ink-soft); font-size: 0.92rem;
+}
+.dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 0 0 rgba(47, 163, 91, 0.5);
+  animation: live-dot 1.8s infinite;
+}
+@keyframes live-dot {
+  0% { box-shadow: 0 0 0 0 rgba(47, 163, 91, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(47, 163, 91, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 163, 91, 0); }
+}
+.hero-photo { position: relative; margin: 0; container-type: inline-size; }
+.hero-photo img {
+  width: 100%; height: auto;
+  border-radius: var(--radius-md);
+  border: 4px solid var(--paper);
+  box-shadow: var(--raised);
+}
+/* The shop name painted onto the photo's blank signboard panel (positions are fractions of the photo). */
+.hero-sign {
+  position: absolute;
+  left: 24%; top: 8.4%; width: 37%; height: 6.4%;
+  display: grid; place-items: center;
+  font-family: var(--font-sign);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 3.6cqw;            /* scales with the photo, not the screen */
+  color: var(--enamel-red);
+  pointer-events: none;
+}
+.promise-badge {
+  position: absolute; left: -10px; bottom: -14px;
+  display: grid; place-items: center;
+  width: 118px; height: 118px;
+  border-radius: 50%;
+  background: var(--enamel-red);
+  color: var(--on-brand);
+  border: 4px solid var(--paper);
+  box-shadow: var(--raised), inset 0 0 0 4px var(--enamel-red), inset 0 0 0 6px rgba(255, 255, 255, 0.6);
+  text-align: center;
+  align-content: center;
+  transform: rotate(-8deg);
+}
+.promise-time { font-family: var(--font-sign); font-weight: 700; font-size: 2.3rem; line-height: 1; }
+.promise-label { font-family: var(--font-sign); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.78rem; }
+
+/* ---------- how it works ---------- */
+.how { background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.how-grid { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 900px) { .how-grid { grid-template-columns: 1fr 1fr; gap: 48px; } }
+.steps { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 16px; }
+.steps li { display: flex; gap: 14px; align-items: flex-start; }
+.steps li .icon {
+  flex: none; color: var(--on-brand); background: var(--royal-blue);
+  border-radius: 10px; padding: 8px; width: 44px; height: 44px;
+}
+.steps strong { display: block; font-family: var(--font-sign); text-transform: uppercase; font-size: 1.2rem; letter-spacing: 0.03em; }
+.steps span { color: var(--ink-soft); }
+.how-photo { width: 100%; height: auto; border-radius: var(--radius-md); }
+
+/* ---------- QR card ---------- */
+.qr-card { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; padding: 24px; border-top: 6px solid var(--enamel-red); }
+.qr-img { width: 176px; height: 176px; border: 1px solid var(--rule); border-radius: var(--radius-sm); background: #fff; padding: 6px; }
+.qr-card > div { flex: 1 1 260px; }
+
+/* ---------- kitchen teaser (dark band) ---------- */
+.kitchen-teaser { background: var(--kds-bg); color: var(--kds-text); }
+.kitchen-teaser p { color: var(--kds-muted); }
+.kitchen-grid { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 900px) { .kitchen-grid { grid-template-columns: 1.1fr 1fr; gap: 48px; } }
+.kitchen-photo { width: 100%; height: auto; border-radius: var(--radius-md); }
+
+/* ---------- today teaser ---------- */
+.today-card { display: flex; align-items: center; gap: 20px; color: var(--ink); text-decoration: none; border-left: 6px solid var(--ok); }
+.today-card:hover { text-decoration: none; box-shadow: var(--raised); }
+.today-card > span:last-child { display: grid; gap: 2px; }
+.today-big { font-family: var(--font-sign); font-weight: 700; font-size: 3.4rem; line-height: 1; color: var(--ok); }
+.today-big small { font-size: 1.6rem; }
+
+.btn .icon { flex: none; }
