@@ -230,3 +230,9 @@
   .table-print-label { display: block; margin: 0; font-family: var(--font-sign); text-transform: uppercase; letter-spacing: 0.04em; font-size: 10pt; }
   .toast { display: none !important; }
 }
+
+/* ---------- settings ---------- */
+.settings-card { max-width: 720px; }
+.settings-form { display: grid; gap: 16px; }
+.settings-actions { margin-top: 4px; }
+.saved-line { margin: 0; padding: 10px 12px; border-radius: var(--radius-sm); background: rgba(47, 163, 91, 0.12); color: #1F7A42; font-weight: 500; }

@@ -15,6 +15,7 @@ import { dashboardPage } from './views/admin/dashboard.js';
 import { ordersPage } from './views/admin/orders.js';
 import { adminMenuPage } from './views/admin/menu.js';
 import { tablesPage } from './views/admin/tables.js';
+import { settingsPage } from './views/admin/settings.js';
 
 addRoute('/', landing);
 addRoute('/table/:n', menuPage);
@@ -26,6 +27,7 @@ addRoute('/admin', dashboardPage);
 addRoute('/admin/orders', ordersPage);
 addRoute('/admin/menu', adminMenuPage);
 addRoute('/admin/tables', tablesPage);
+addRoute('/admin/settings', settingsPage);
 
 subscribe(() => refresh());
 startChannel();
