@@ -27,6 +27,7 @@ function minuteAnnouncement(status) {
 
 export const orderPage = {
   title: 'Your order',
+  dock: { active: 'order' },
   guard: (params) => (orderById(params.id) ? null : '/'),
   render(params) {
     const status = orderStatus(params.id);
@@ -34,7 +35,7 @@ export const orderPage = {
     const ready = status.state === 'ready';
     const fraction = Math.max(0, Math.min(1, status.remaining / status.promise));
     return html`
-      ${publicHeader({ strip: `Order #${order.id} · Table ${order.table}`, back: { href: `#/table/${order.table}`, label: 'Menu' } })}
+      ${publicHeader({ strip: `Order #${order.id} · Table ${order.table}` })}
       <main class="container order-main">
         <ol class="tracker" aria-label="Order progress">
           ${step('Reached the kitchen', true, status.state === 'received')}

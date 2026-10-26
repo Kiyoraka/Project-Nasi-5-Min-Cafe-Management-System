@@ -1,7 +1,7 @@
 /* Nasi 5 Minit — staff sign-in and the admin (top bar + bottom navigation dock, no sidebar). */
 
 /* ---------- login ---------- */
-.login { min-height: 100vh; display: grid; grid-template-columns: 1fr; }
+.login { min-height: calc(100vh - var(--dock-space)); display: grid; grid-template-columns: 1fr; }
 @media (min-width: 900px) { .login { grid-template-columns: 1.1fr 1fr; } }
 .login-photo { display: none; margin: 0; position: relative; }
 @media (min-width: 900px) {

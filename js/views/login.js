@@ -22,6 +22,7 @@ function nextPath() {
 
 export const loginPage = {
   title: 'Staff sign in',
+  dock: { active: '' },
   guard: () => (isSignedIn() ? nextPath() : null),
   render() {
     return html`

@@ -7,11 +7,14 @@
 //   tick            -> optional (root) => update live timers in place, called every second
 //   update          -> optional (root, params) => repaint part of the page on a state change
 //                      (instead of a full render) when the page itself has not changed
+//   dock            -> optional { active, dark } for the guest bottom dock: the router renders it
+//                      after the page, keeps it fresh on updates and ticks, and reserves room for it
 //   title           -> optional page title suffix
 // State changes call refresh(); it skips while the user is typing or a modal is open,
 // so a background order never wipes a half-filled form.
 
 import { html } from './ui.js';
+import { guestDock, tickGuestDock } from './views/guest-dock.js';
 
 const routes = [];
 // Handlers that work on every page; a page's own handler wins.
@@ -62,6 +65,7 @@ export function navigate(path) {
 
 const notFound = {
   title: 'Not found',
+  dock: { active: '' },
   render: () => html`
     <main class="container not-found">
       <div class="big5">5</div>
@@ -79,12 +83,16 @@ function render() {
   const changedPage = !current || current.view !== found.view || currentPath() !== current.path;
   if (!changedPage && found.view.update) {
     found.view.update(root, found.params);
+    const dock = root.querySelector(':scope > .dock');
+    if (dock && found.view.dock) dock.outerHTML = guestDock(found.view.dock).toString();
     return;
   }
   current = { ...found, path: currentPath() };
-  root.innerHTML = found.view.render(found.params).toString();
+  const page = found.view.render(found.params).toString();
+  root.innerHTML = found.view.dock ? page + guestDock(found.view.dock).toString() : page;
   document.title = found.view.title ? `${found.view.title} · Nasi 5 Minit` : 'Nasi 5 Minit — QR Ordering & Kitchen Display';
   document.body.dataset.surface = found.view.surface || 'light';
+  document.body.dataset.dock = found.view.dock ? 'guest' : '';
   if (changedPage) window.scrollTo(0, 0);
   found.view.mounted?.(root, found.params);
 }
@@ -105,6 +113,7 @@ export function refresh({ force = false } = {}) {
 // Update live timers on the current page without a full repaint.
 export function tick() {
   if (current?.view.tick) current.view.tick(root, current.params);
+  if (current?.view.dock) tickGuestDock(root);
 }
 
 export function startRouter(mountEl) {

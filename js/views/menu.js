@@ -61,12 +61,13 @@ function activeOrderBanner() {
 
 export const menuPage = {
   title: 'Menu',
+  dock: { active: 'menu' },
   guard: (params) => (tableExists(params.n) ? null : '/'),
   render(params) {
     setCartTable(params.n);
     const count = cartCount();
     return html`
-      ${publicHeader({ strip: `Table ${params.n} · ready in ${Math.round(STATE.settings.promiseSeconds / 60)} min`, back: { href: '#/', label: 'Shop' } })}
+      ${publicHeader({ strip: `Table ${params.n} · ready in ${Math.round(STATE.settings.promiseSeconds / 60)} min` })}
       <nav class="category-chips" aria-label="Menu sections">
         <div class="container chips">
           ${categories.map((c) => html`<button class="chip" data-action="jump" data-target="cat-${c.id}">${c.name}</button>`)}

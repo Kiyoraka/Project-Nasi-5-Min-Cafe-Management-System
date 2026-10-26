@@ -3,18 +3,14 @@
 import { html } from '../ui.js';
 import { STATE } from '../state.js';
 
-export function publicHeader({ strip = '', back = null } = {}) {
+// Navigation lives in the bottom dock; the signboard keeps the shop name and the staff door.
+export function publicHeader({ strip = '' } = {}) {
   return html`
     <header class="site-head">
      <div class="signboard">
       <div class="signboard-inner container">
         <a class="signboard-name" href="#/">${STATE.settings.shopName}</a>
-        <nav class="public-nav" aria-label="Main">
-          ${back ? html`<a href="${back.href}">${back.label}</a>` : html`
-            <a href="#/table/4">Menu</a>
-            <a href="#/kitchen">Kitchen</a>
-            <a href="#/today">Today</a>`}
-        </nav>
+        <a class="public-staff" href="#/login">Staff sign in</a>
       </div>
      </div>
      ${strip ? html`<div class="strip">${strip}</div>` : ''}

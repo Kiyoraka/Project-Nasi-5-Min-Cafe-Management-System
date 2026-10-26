@@ -1,8 +1,7 @@
 /* Nasi 5 Minit — customer pages: landing, menu, cart sheet, order status, today. */
 
 /* ---------- public header + footer ---------- */
-.public-nav { display: flex; gap: 18px; }
-.public-nav a {
+.public-staff {
   color: var(--on-brand);
   font-family: var(--font-sign);
   font-weight: 600;
@@ -140,7 +139,7 @@
 .category-chips .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
 .category-chips .chips::-webkit-scrollbar { display: none; }
 .menu-main { padding-top: 16px; padding-bottom: 32px; }
-.menu-main.has-cart { padding-bottom: 110px; }
+.menu-main.has-cart { padding-bottom: 96px; }
 .menu-section { padding-top: 12px; scroll-margin-top: 70px; }
 .menu-section .sign-title { font-size: 1.5rem; border-bottom: 3px double var(--rule); padding-bottom: 6px; margin-bottom: 12px; }
 .dish-grid { display: grid; gap: 12px; }
@@ -183,10 +182,12 @@
 
 /* sticky cart bar */
 .cart-bar-wrap {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
-  padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
-  background: linear-gradient(to top, var(--rice) 70%, rgba(250, 246, 238, 0));
+  position: fixed; left: 0; right: 0; bottom: calc(var(--dock-space) - 16px); z-index: 30;
+  padding: 10px var(--gutter);
+  pointer-events: none;            /* only the bar itself takes clicks; the dock below stays reachable */
 }
+.cart-bar-wrap .cart-bar { pointer-events: auto; }
+@media (max-width: 767px) { .cart-bar-wrap { bottom: calc(var(--dock-space) - 8px); } }
 .cart-bar {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   width: 100%; max-width: 720px; min-height: 56px; padding: 0 18px;

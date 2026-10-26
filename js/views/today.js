@@ -26,6 +26,7 @@ export function hourBars(buckets) {
 
 export const todayPage = {
   title: 'Today',
+  dock: { active: 'today' },
   render() {
     const stats = todayStats();
     const under = Math.round(stats.underRate * 100);

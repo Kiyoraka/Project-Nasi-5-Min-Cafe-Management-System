@@ -15,6 +15,7 @@ function promiseBadge() {
 }
 
 export const landing = {
+  dock: { active: 'home' },
   render() {
     const stats = todayStats();
     const kitchen = kitchenNow();
