@@ -1,0 +1,74 @@
+/* Nasi 5 Minit — kitchen display (dark), shared by #/kitchen and the #/live split view. */
+
+.kds-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px var(--gutter);
+  background: #0D0E10;
+  border-bottom: 3px solid var(--enamel-red);
+}
+.kds-brand {
+  font-family: var(--font-sign); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  font-size: 1.35rem; color: var(--kds-text);
+}
+.kds-brand span { color: var(--kds-muted); font-weight: 600; }
+.kds-brand:hover { text-decoration: none; }
+.kds-clock { margin-left: auto; font-family: var(--font-sign); font-weight: 600; font-size: 1.3rem; color: var(--kds-text); }
+.btn-kds { background: var(--kds-card); color: var(--kds-text); border-color: var(--kds-line); }
+.btn-kds:hover { background: var(--kds-line); }
+.btn-kds[aria-pressed="true"] { border-color: var(--turmeric); color: var(--turmeric); }
+
+.kds-main { padding: 12px var(--gutter) 72px; }
+.kds { display: grid; gap: 12px; }
+.kds-allday {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px;
+  background: var(--kds-card); border: 1px solid var(--kds-line); border-radius: var(--radius-sm);
+  padding: 8px 12px; color: var(--kds-text); font-size: 0.95rem;
+}
+.kds-allday-label {
+  font-family: var(--font-sign); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--turmeric);
+}
+.kds-allday-item b { font-family: var(--font-sign); font-size: 1.15rem; color: var(--kds-text); }
+.kds-muted, .kds-empty { color: var(--kds-muted); }
+.kds-empty { grid-column: 1 / -1; text-align: center; padding: 48px 0; }
+
+.kds-tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.kds-tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 42px; padding: 0 16px;
+  background: var(--kds-card); color: var(--kds-muted);
+  border: 1px solid var(--kds-line); border-radius: var(--radius-pill);
+  font-family: var(--font-sign); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 1rem;
+  cursor: pointer; white-space: nowrap;
+}
+.kds-tab.is-active { background: var(--kds-text); color: var(--kds-bg); border-color: var(--kds-text); }
+.kds-tab-count { display: inline-grid; place-items: center; min-width: 24px; height: 24px; border-radius: 12px; background: var(--kds-line); color: var(--kds-text); font-size: 0.85rem; padding: 0 6px; }
+.kds-tab.is-active .kds-tab-count { background: var(--kds-bg); color: var(--kds-text); }
+
+.ticket-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); align-items: start; }
+.ticket {
+  background: var(--kds-card); color: var(--kds-text);
+  border: 1px solid var(--kds-line); border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.ticket-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; background: var(--kds-line);
+  font-family: var(--font-sign); font-weight: 700;
+}
+.ticket-table { font-size: 1.5rem; }
+.ticket-no { color: var(--kds-muted); font-size: 1rem; }
+.ticket-age { margin-left: auto; font-size: 1.5rem; }
+.ticket-lines { list-style: none; margin: 0; padding: 10px 12px 12px; display: grid; gap: 6px; font-size: 1.02rem; }
+.ticket-lines b { font-family: var(--font-sign); font-size: 1.15rem; margin-right: 2px; }
+.ticket-note { display: block; color: var(--turmeric); font-size: 0.88rem; padding-left: 22px; }
+.ticket-note::before { content: "· "; }
+
+.kds-foot {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  padding: 10px var(--gutter);
+  background: #0D0E10; color: var(--kds-muted);
+  border-top: 1px solid var(--kds-line);
+  font-size: 0.95rem;
+}
+.kds-foot b { color: var(--kds-text); }
