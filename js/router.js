@@ -107,6 +107,9 @@ export function startRouter(mountEl) {
   root.addEventListener('click', (event) => {
     const el = event.target.closest('[data-action]');
     if (!el || !root.contains(el)) return;
+    // data-self (a backdrop): act only on a click on the element itself, never on its children,
+    // so buttons and form submits inside a dialog keep their own behaviour.
+    if (el.hasAttribute('data-self') && event.target !== el) return;
     const name = el.dataset.action;
     const handler = current?.view.actions?.[name] || global.actions[name];
     if (handler) { event.preventDefault(); handler(el, event); }

@@ -239,6 +239,7 @@ function cleanDish(fields) {
     prepSeconds: Math.max(15, Math.round(Number(fields.prepSeconds) || 120)),
     image: fields.image || null,
     soldOut: Boolean(fields.soldOut),
+    notes: Array.isArray(fields.notes) ? fields.notes.filter((note) => data.notePresets.includes(note)) : [],
   };
 }
 
@@ -330,8 +331,40 @@ export function saveSettings(fields) {
 }
 
 // ---------- events from another tab (channel.js) ----------
+// What a newly opened tab needs from the tabs already open: the owner's menu, tables and
+// settings, and every live order with its tickets' bump state.
+export function snapshot() {
+  return {
+    type: 'snapshot',
+    menu: STATE.menu,
+    tables: STATE.tables,
+    settings: STATE.settings,
+    orders: STATE.orders.filter((order) => order.source !== 'history' && order.source !== 'boot'),
+  };
+}
+
+function mergeOrder(remote) {
+  const local = orderById(remote.id);
+  if (!local) {
+    STATE.orders.push({ ...remote, fresh: false });
+    STATE.nextId = Math.max(STATE.nextId, remote.id + 1);
+    return;
+  }
+  remote.tickets.forEach((ticket) => {
+    const mine = local.tickets.find((t) => t.station === ticket.station);
+    if (mine && ticket.bumpedAt && !mine.bumpedAt) mine.bumpedAt = ticket.bumpedAt;
+  });
+  if (remote.readyAt && !local.readyAt) local.readyAt = remote.readyAt;
+}
+
 export function applyRemote(event) {
-  if (event.type === 'order' && !orderById(event.order.id)) {
+  if (event.type === 'snapshot') {
+    STATE.menu = event.menu.map((dish) => ({ ...dish }));
+    STATE.tables = event.tables.map((t) => ({ ...t }));
+    Object.assign(STATE.settings, event.settings);
+    event.orders.forEach(mergeOrder);
+    STATE.orders.sort((a, b) => a.placedAt - b.placedAt);
+  } else if (event.type === 'order' && !orderById(event.order.id)) {
     // Ids come from the sending tab; keep ours ahead of theirs.
     STATE.orders.push({ ...event.order, fresh: true });
     STATE.orders.sort((a, b) => a.placedAt - b.placedAt);

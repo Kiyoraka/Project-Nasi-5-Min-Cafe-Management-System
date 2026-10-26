@@ -17,7 +17,9 @@ export function isCartOpen() {
 }
 
 function noteChips(line, index) {
-  const presets = dishById(line.dishId)?.category === 'drinks' ? DRINK_NOTES : FOOD_NOTES;
+  // A dish's own notes (set in Admin > Menu) win over the usual notes for its category.
+  const dish = dishById(line.dishId);
+  const presets = dish?.notes?.length ? dish.notes : dish?.category === 'drinks' ? DRINK_NOTES : FOOD_NOTES;
   const chosen = line.note.split(',').map((part) => part.trim());
   return presets.map((preset) => html`
     <button class="chip chip-sm" aria-pressed="${chosen.includes(preset) ? 'true' : 'false'}"
@@ -46,7 +48,7 @@ function cartLine(line, index) {
 
 export function cartSheet() {
   return html`
-    <div class="sheet-backdrop" data-action="close-cart">
+    <div class="sheet-backdrop" data-self data-action="close-cart">
       <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="cart-title">
         <div class="modal-head">
           <h2 id="cart-title" class="sign-title cart-title">Your order · Table ${STATE.cart.table}</h2>
@@ -69,9 +71,7 @@ export const cartSheetHandlers = {
       refresh({ force: true });
       document.querySelector('.sheet [data-action="place-order"]')?.focus();
     },
-    'close-cart'(el, event) {
-      // The backdrop closes only on a click outside the sheet itself.
-      if (el.classList.contains('sheet-backdrop') && event.target !== el) return;
+    'close-cart'() {
       open = false;
       refresh({ force: true });
     },
