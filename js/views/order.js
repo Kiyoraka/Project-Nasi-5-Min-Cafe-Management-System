@@ -9,7 +9,7 @@ import { icon } from './icons.js';
 
 function step(label, done, current) {
   return html`
-    <li class="track-step ${done ? 'is-done' : ''} ${current ? 'is-current' : ''}" ${current ? 'aria-current="step"' : ''}>
+    <li class="track-step ${done ? 'is-done' : ''} ${current ? 'is-current' : ''}" aria-current="${current ? 'step' : 'false'}">
       <span class="track-dot">${done ? icon('check', { size: 16 }) : ''}</span>
       <span class="track-label">${label}</span>
     </li>`;

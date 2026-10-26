@@ -40,14 +40,14 @@ export const loginPage = {
                 <label for="login-email">Email</label>
                 <input id="login-email" class="input" type="email" name="email" autocomplete="username"
                        value="${draft.email}" data-input="draft" aria-invalid="${errors.email ? 'true' : 'false'}"
-                       ${errors.email ? 'aria-describedby="login-email-error"' : ''}>
+                       aria-describedby="${errors.email ? 'login-email-error' : ''}">
                 ${errors.email ? html`<span id="login-email-error" class="field-error">${errors.email}</span>` : ''}
               </div>
               <div class="field">
                 <label for="login-password">Password</label>
                 <input id="login-password" class="input" type="password" name="password" autocomplete="current-password"
                        value="${draft.password}" data-input="draft" aria-invalid="${errors.password ? 'true' : 'false'}"
-                       ${errors.password ? 'aria-describedby="login-password-error"' : ''}>
+                       aria-describedby="${errors.password ? 'login-password-error' : ''}">
                 ${errors.password ? html`<span id="login-password-error" class="field-error">${errors.password}</span>` : ''}
               </div>
               <button class="btn btn-primary btn-block" type="submit">Sign in</button>
