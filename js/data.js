@@ -110,17 +110,29 @@ function serviceWindow() {
   return { start, span: end - start };
 }
 
+// How busy the shop is at a clock hour: a steady trickle, a lunch rush near 12:45 and dinner near 19:30.
+function busyness(hour) {
+  const bump = (centre, width) => Math.exp(-((hour - centre) ** 2) / (2 * width * width));
+  return 0.35 + bump(12.75, 0.75) + 0.8 * bump(19.5, 0.9);
+}
+
+// Pick an order time inside the window, more often at the busy hours (rejection sampling).
+function busyMoment(rand, start, span) {
+  for (let tries = 0; tries < 50; tries += 1) {
+    const t = start + rand() * span;
+    const date = new Date(t);
+    if (rand() * 1.4 < busyness(date.getHours() + date.getMinutes() / 60)) return t;
+  }
+  return start + rand() * span;
+}
+
 function buildHistory() {
   const rand = seeded(5);
   const count = 182;
   const { start, span } = serviceWindow();
   const history = [];
   for (let i = 0; i < count; i += 1) {
-    // Busier at lunch and dinner: fold the position through a two-peak curve.
-    const u = rand();
-    const peak = rand() < 0.5 ? 0.18 : 0.72;
-    const position = Math.min(0.995, Math.max(0, peak + (u - 0.5) * 0.42));
-    const placedAt = start + position * span;
+    const placedAt = busyMoment(rand, start, span);
     const lines = randomLines(rand);
     const slow = lines.some((line) => line.dishId === 'ayam-goreng-berempah');
     const late = i % 17 === 0;                    // 11 of 182 = 6 % past the promise
