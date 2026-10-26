@@ -46,6 +46,12 @@
 
   --container: 1120px;
   --gutter: 16px;
+
+  /* room the content leaves for the bottom dock: 66 px dock + 16 px gap + 16 px air */
+  --dock-space: 98px;
+}
+@media (max-width: 767px) {
+  :root { --dock-space: calc(72px + env(safe-area-inset-bottom)); }
 }
 
 /* ---------- reset ---------- */
@@ -245,6 +251,86 @@ p { margin: 0 0 1em; }
   max-width: calc(100vw - 32px);
 }
 @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+/* ---------- bottom navigation dock (every page: guest light, kitchen dark, admin) ---------- */
+.dock {
+  position: fixed; z-index: 40;
+  left: 50%; bottom: 16px; transform: translateX(-50%);
+  width: calc(100% - 32px); max-width: 640px;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
+  padding: 6px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 40px rgba(21, 43, 102, 0.22);
+}
+.dock-item {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 52px; padding: 0 8px;
+  border-radius: 18px;
+  color: var(--ink-soft);
+  font-family: var(--font-sign); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.98rem;
+  transition: transform 0.15s, background 0.15s, color 0.15s;
+}
+.dock-item:hover { text-decoration: none; color: var(--ink); transform: translateY(-2px); }
+.dock-item.is-active {
+  background: var(--enamel-red); color: var(--on-brand);
+  box-shadow: inset 0 0 0 2px var(--enamel-red), inset 0 0 0 3px rgba(255, 255, 255, 0.55);
+}
+.dock-item.is-active:hover { transform: none; }
+.dock-icon { position: relative; display: inline-grid; place-items: center; }
+.dock-badge {
+  position: absolute; top: -8px; right: -12px;
+  min-width: 20px; height: 20px; padding: 0 5px;
+  border-radius: 10px; background: var(--royal-blue); color: var(--on-brand);
+  font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0;
+  display: grid; place-items: center; border: 2px solid var(--paper);
+}
+.dock-item.is-active .dock-badge { border-color: var(--enamel-red); }
+.dock-short { display: none; }
+
+/* A dock item that cannot be used yet (the guest's Order before the first order). */
+.dock-item.is-disabled { opacity: 0.4; cursor: default; }
+.dock-item.is-disabled:hover { transform: none; color: var(--ink-soft); }
+/* Order states on the guest dock: a red dot while cooking, a green check when ready. */
+.dock-dot {
+  position: absolute; top: -3px; right: -6px; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--enamel-red); border: 2px solid var(--paper); animation: dock-dot 1.6s ease-in-out infinite;
+}
+@keyframes dock-dot { 50% { transform: scale(1.25); } }
+.dock-check {
+  position: absolute; top: -6px; right: -10px; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--ok); color: #fff; display: grid; place-items: center; border: 2px solid var(--paper);
+}
+.dock-check .icon { width: 10px; height: 10px; stroke-width: 3; }
+.dock-item.is-active .dock-dot, .dock-item.is-active .dock-check { border-color: var(--enamel-red); }
+
+/* Dark dock for the kitchen screen and the live view. */
+.dock-dark { background: var(--kds-card); border-color: var(--kds-line); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5); }
+.dock-dark .dock-item { color: var(--kds-muted); }
+.dock-dark .dock-item:hover { color: var(--kds-text); }
+.dock-dark .dock-item.is-disabled:hover { color: var(--kds-muted); }
+.dock-dark .dock-dot, .dock-dark .dock-check, .dock-dark .dock-badge { border-color: var(--kds-card); }
+
+/* below 768 px: a full-width tab bar flush to the bottom, icon over a short label */
+@media (max-width: 767px) {
+  .dock {
+    left: 0; right: 0; bottom: 0; transform: none; width: 100%; max-width: none;
+    border-radius: 0; border-left: 0; border-right: 0; border-bottom: 0;
+    padding: 4px 4px calc(4px + env(safe-area-inset-bottom));
+    gap: 0; box-shadow: 0 -6px 18px rgba(21, 43, 102, 0.12);
+  }
+  .dock-item {
+    flex-direction: column; gap: 2px; min-height: 56px; border-radius: 12px;
+    font-size: 0.78rem; letter-spacing: 0.02em;
+  }
+  .dock-item.is-active { background: transparent; color: var(--enamel-red); box-shadow: inset 0 3px 0 var(--enamel-red); border-radius: 0; }
+  .dock-long { display: none; }
+  .dock-short { display: inline; }
+  .dock-dark { box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.45); }
+}
+
+@media print { .dock { display: none !important; } }
 
 /* ---------- not found ---------- */
 .not-found { text-align: center; padding-top: 64px; padding-bottom: 64px; }
