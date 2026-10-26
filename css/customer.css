@@ -197,3 +197,28 @@
 }
 .cart-bar:hover { background: var(--red-deep); }
 .cart-bar-count, .cart-bar-go { display: inline-flex; align-items: center; gap: 8px; }
+
+/* ---------- cart sheet ---------- */
+.cart-title { font-size: 1.35rem; margin: 0; }
+.cart-lines { list-style: none; margin: 0; padding: 0 16px; }
+.cart-line {
+  display: grid; gap: 8px;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "head head" "chips chips" "note stepper";
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.cart-line-head { grid-area: head; display: flex; justify-content: space-between; gap: 12px; }
+.cart-line-head strong { font-family: var(--font-sign); text-transform: uppercase; font-size: 1.1rem; letter-spacing: 0.02em; }
+.cart-line .chips { grid-area: chips; }
+.cart-line .input { grid-area: note; }
+.chip-sm { min-height: 30px; padding: 0 10px; font-size: 0.82rem; }
+.input-sm { min-height: 38px; padding: 6px 10px; font-size: 0.92rem; }
+.stepper { grid-area: stepper; display: inline-flex; align-items: center; gap: 4px; border: 1.5px solid var(--rule); border-radius: var(--radius-pill); padding: 2px; }
+.stepper .btn { min-height: 32px; width: 34px; padding: 0; border-radius: 50%; }
+.stepper span { min-width: 22px; text-align: center; font-weight: 700; }
+.cart-foot { padding: 16px; display: grid; gap: 8px; position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--rule); }
+.cart-foot p { margin: 0; font-size: 0.88rem; }
+.cart-total { display: flex; justify-content: space-between; font-size: 1.15rem; }
+.cart-total strong { font-family: var(--font-sign); font-size: 1.5rem; }
