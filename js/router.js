@@ -5,6 +5,8 @@
 //   inputs          -> { name(el, event) } run for input/change on [data-input="name"]
 //   guard           -> optional (params) => redirect hash (or null) checked before render
 //   tick            -> optional (root) => update live timers in place, called every second
+//   update          -> optional (root, params) => repaint part of the page on a state change
+//                      (instead of a full render) when the page itself has not changed
 //   title           -> optional page title suffix
 // State changes call refresh(); it skips while the user is typing or a modal is open,
 // so a background order never wipes a half-filled form.
@@ -75,6 +77,10 @@ function render() {
   if (redirect) { navigate(redirect); return; }
 
   const changedPage = !current || current.view !== found.view || currentPath() !== current.path;
+  if (!changedPage && found.view.update) {
+    found.view.update(root, found.params);
+    return;
+  }
   current = { ...found, path: currentPath() };
   root.innerHTML = found.view.render(found.params).toString();
   document.title = found.view.title ? `${found.view.title} · Nasi 5 Minit` : 'Nasi 5 Minit — QR Ordering & Kitchen Display';
