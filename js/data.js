@@ -151,9 +151,10 @@ function buildHistory() {
 
 export const history = buildHistory();
 
-// Six orders already cooking when the kitchen screen opens: mostly OK, one HURRY, one near LATE.
+// Six orders already cooking when the kitchen screen opens: mostly OK, two HURRY, one already LATE
+// (the staff clear it within the first minute, so a visitor sees every colour).
 export const bootOrders = [
-  { table: 9, ageSeconds: 288, lines: [{ dishId: 'ayam-goreng-berempah', qty: 1, note: '' }, { dishId: 'nasi-lemak', qty: 1, note: '' }] },
+  { table: 9, ageSeconds: 318, lines: [{ dishId: 'ayam-goreng-berempah', qty: 1, note: '' }, { dishId: 'nasi-lemak', qty: 1, note: '' }] },
   { table: 7, ageSeconds: 205, lines: [{ dishId: 'nasi-lemak', qty: 1, note: 'extra telur' }, { dishId: 'teh-tarik', qty: 1, note: '' }] },
   { table: 1, ageSeconds: 150, lines: [{ dishId: 'nasi-kerabu', qty: 1, note: '' }] },
   { table: 3, ageSeconds: 110, lines: [{ dishId: 'nasi-goreng-kampung', qty: 2, note: 'no sambal' }, { dishId: 'sirap-limau', qty: 2, note: 'no ice' }] },

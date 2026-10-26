@@ -72,3 +72,45 @@
   font-size: 0.95rem;
 }
 .kds-foot b { color: var(--kds-text); }
+
+/* ---------- ticket states: colour + bar + word, never colour alone ---------- */
+.ticket { cursor: pointer; transition: transform 0.12s, box-shadow 0.12s; border-top: 6px solid var(--ok); }
+.ticket:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); }
+.ticket:active { transform: translateY(0) scale(0.99); }
+.ticket:focus-visible { outline: 3px solid var(--turmeric); outline-offset: 2px; box-shadow: none; }
+.ticket.is-ok { border-top-color: var(--ok); }
+.ticket.is-ok .ticket-head { background: rgba(47, 163, 91, 0.16); }
+.ticket.is-hurry { border-top-color: var(--hurry); }
+.ticket.is-hurry .ticket-head { background: rgba(242, 169, 0, 0.2); }
+.ticket.is-late { border-top-color: var(--late); animation: late-pulse 1s ease-in-out infinite; }
+.ticket.is-late .ticket-head { background: rgba(229, 56, 59, 0.32); }
+@keyframes late-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(229, 56, 59, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(229, 56, 59, 0.45); }
+}
+.ticket.is-new { animation: new-flash 0.9s ease-out 2; }
+@keyframes new-flash {
+  0% { background: #3A3F4A; }
+  100% { background: var(--kds-card); }
+}
+.ticket-new {
+  font-family: var(--font-sign); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.78rem;
+  background: var(--turmeric); color: var(--kds-bg); border-radius: 4px; padding: 1px 6px;
+}
+.ticket-meter { display: flex; align-items: center; gap: 10px; padding: 8px 12px 0; }
+.ticket-bar { flex: 1; height: 8px; background: var(--kds-line); border-radius: var(--radius-pill); overflow: hidden; }
+.ticket-bar span { display: block; height: 100%; border-radius: inherit; transition: width 0.9s linear; background: var(--ok); }
+.ticket.is-hurry .ticket-bar span { background: var(--hurry); }
+.ticket.is-late .ticket-bar span { background: var(--late); }
+.ticket-word {
+  font-family: var(--font-sign); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 0.95rem; min-width: 46px; text-align: right; color: var(--ok);
+}
+.ticket.is-hurry .ticket-word { color: var(--hurry); }
+.ticket.is-late .ticket-word { color: var(--late); }
+.ticket-station {
+  margin: 6px 12px 0; font-family: var(--font-sign); font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; font-size: 0.78rem; color: var(--kds-muted);
+}
+.ticket-hint { margin: 0; padding: 6px 12px 10px; font-size: 0.75rem; color: var(--kds-muted); border-top: 1px dashed var(--kds-line); }
+@media (hover: hover) { .ticket-hint { opacity: 0; transition: opacity 0.15s; } .ticket:hover .ticket-hint, .ticket:focus-visible .ticket-hint { opacity: 1; } }
