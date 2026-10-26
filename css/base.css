@@ -311,6 +311,7 @@ p { margin: 0 0 1em; }
 .dock-dark .dock-item:hover { color: var(--kds-text); }
 .dock-dark .dock-item.is-disabled:hover { color: var(--kds-muted); }
 .dock-dark .dock-dot, .dock-dark .dock-check, .dock-dark .dock-badge { border-color: var(--kds-card); }
+.dock-dark .dock-item.is-active { color: var(--on-brand); }
 
 /* below 768 px: a full-width tab bar flush to the bottom, icon over a short label */
 @media (max-width: 767px) {
@@ -328,6 +329,7 @@ p { margin: 0 0 1em; }
   .dock-long { display: none; }
   .dock-short { display: inline; }
   .dock-dark { box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.45); }
+  .dock-dark .dock-item.is-active { color: #FF7C7E; box-shadow: inset 0 3px 0 #FF7C7E; }   /* light red reads on the dark bar */
 }
 
 @media print { .dock { display: none !important; } }

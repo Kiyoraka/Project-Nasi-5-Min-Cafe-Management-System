@@ -29,7 +29,7 @@ export function stationTabs() {
 export function allDayStrip() {
   const counts = allDayCounts();
   return html`
-    <div class="kds-allday" aria-label="All day counts">
+    <div class="kds-allday" role="region" aria-label="All day counts" tabindex="0">
       <span class="kds-allday-label">All day</span>
       ${counts.length
         ? counts.map((c) => html`<span class="kds-allday-item"><b class="tabular">${c.qty}</b> ${c.name}</span>`)
