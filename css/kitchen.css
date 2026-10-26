@@ -11,6 +11,7 @@
   font-size: 1.35rem; color: var(--kds-text);
 }
 .kds-brand span { color: var(--kds-muted); font-weight: 600; }
+.kds-title { margin: 0; font-size: inherit; line-height: inherit; }
 .kds-brand:hover { text-decoration: none; }
 .kds-clock { margin-left: auto; font-family: var(--font-sign); font-weight: 600; font-size: 1.3rem; color: var(--kds-text); }
 .btn-kds { background: var(--kds-card); color: var(--kds-text); border-color: var(--kds-line); }
@@ -57,7 +58,7 @@
   font-family: var(--font-sign); font-weight: 700;
 }
 .ticket-table { font-size: 1.5rem; }
-.ticket-no { color: var(--kds-muted); font-size: 1rem; }
+.ticket-no { color: #C9CCD2; font-size: 1rem; }   /* readable on the tinted OK, HURRY and LATE headers */
 .ticket-age { margin-left: auto; font-size: 1.5rem; }
 .ticket-lines { list-style: none; margin: 0; padding: 10px 12px 12px; display: grid; gap: 6px; font-size: 1.02rem; }
 .ticket-lines b { font-family: var(--font-sign); font-size: 1.15rem; margin-right: 2px; }
@@ -107,7 +108,7 @@
   font-size: 0.95rem; min-width: 46px; text-align: right; color: var(--ok);
 }
 .ticket.is-hurry .ticket-word { color: var(--hurry); }
-.ticket.is-late .ticket-word { color: var(--late); }
+.ticket.is-late .ticket-word { color: #FF7C7E; }   /* lighter red so the word reads on the dark card */
 .ticket-station {
   margin: 6px 12px 0; font-family: var(--font-sign); font-weight: 600; text-transform: uppercase;
   letter-spacing: 0.08em; font-size: 0.78rem; color: var(--kds-muted);

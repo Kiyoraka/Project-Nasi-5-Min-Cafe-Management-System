@@ -50,7 +50,7 @@ export function ticketCard(ticket, now = Date.now()) {
   const state = ticketState(age);
   const label = `Table ${ticket.order.table}, order ${ticket.order.id}, ${stationName(ticket.station)}, ${STATE_WORDS[state]}. Tap to bump.`;
   return html`
-    <article class="ticket is-${state} ${ticket.order.fresh ? 'is-new' : ''}" data-key="${ticket.key}"
+    <div class="ticket is-${state} ${ticket.order.fresh ? 'is-new' : ''}" data-key="${ticket.key}"
              data-action="bump" data-order="${ticket.order.id}" data-station="${ticket.station}"
              role="button" tabindex="0" aria-label="${label}">
       <header class="ticket-head">
@@ -70,7 +70,7 @@ export function ticketCard(ticket, now = Date.now()) {
             ${line.note ? html`<span class="ticket-note">${line.note}</span>` : ''}</li>`)}
       </ul>
       <p class="ticket-hint">Tap to bump</p>
-    </article>`;
+    </div>`;
 }
 
 export function kitchenBoard({ compact = false } = {}) {
@@ -163,7 +163,7 @@ export const kitchenPage = {
   render() {
     return html`
       <header class="kds-header">
-        <a class="kds-brand" href="#/">${STATE.settings.shopName} <span>· Kitchen</span></a>
+        <h1 class="kds-title"><a class="kds-brand" href="#/">${STATE.settings.shopName} <span>· Kitchen</span></a></h1>
         <span class="kds-clock tabular" data-clock>${formatTime(Date.now())}</span>
         ${kitchenControls()}
         <a class="btn btn-sm btn-kds" href="#/">${icon('arrow', { size: 16 })} Shop</a>

@@ -12,7 +12,7 @@ const WIDE = '(min-width: 1024px)';
 function kitchenSide() {
   return html`
     <div class="live-kitchen-bar">
-      <span class="kds-brand">Kitchen</span>
+      <h2 class="kds-title"><span class="kds-brand">Kitchen</span></h2>
       <span class="kds-clock tabular" data-clock>${formatTime(Date.now())}</span>
       ${kitchenControls()}
     </div>
@@ -28,7 +28,7 @@ export const livePage = {
       <header class="signboard live-head">
         <div class="signboard-inner live-head-inner">
           <a class="signboard-name" href="#/">${STATE.settings.shopName}</a>
-          <p class="live-title">See it live <span>Order on the phone, watch the ticket land in the kitchen</span></p>
+          <h1 class="live-title">See it live <span>Order on the phone, watch the ticket land in the kitchen</span></h1>
           <a class="btn btn-sm btn-outline-light" href="#/">${icon('arrow', { size: 16 })} Shop</a>
         </div>
       </header>

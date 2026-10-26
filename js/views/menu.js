@@ -73,6 +73,7 @@ export const menuPage = {
         </div>
       </nav>
       <main class="container menu-main ${count ? 'has-cart' : ''}">
+        <h1 class="sr-only">Table ${params.n} menu</h1>
         ${activeOrderBanner()}
         ${categories.map((c) => {
           const dishes = STATE.menu.filter((dish) => dish.category === c.id);

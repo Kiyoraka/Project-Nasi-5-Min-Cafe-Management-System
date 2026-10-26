@@ -5,7 +5,8 @@ import { STATE } from '../state.js';
 
 export function publicHeader({ strip = '', back = null } = {}) {
   return html`
-    <header class="signboard">
+    <header class="site-head">
+     <div class="signboard">
       <div class="signboard-inner container">
         <a class="signboard-name" href="#/">${STATE.settings.shopName}</a>
         <nav class="public-nav" aria-label="Main">
@@ -15,8 +16,9 @@ export function publicHeader({ strip = '', back = null } = {}) {
             <a href="#/today">Today</a>`}
         </nav>
       </div>
-    </header>
-    ${strip ? html`<div class="strip">${strip}</div>` : ''}`;
+     </div>
+     ${strip ? html`<div class="strip">${strip}</div>` : ''}
+    </header>`;
 }
 
 export function publicFooter() {

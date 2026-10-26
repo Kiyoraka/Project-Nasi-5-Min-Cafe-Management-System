@@ -164,8 +164,9 @@
 .dish-desc { color: var(--muted); font-size: 0.88rem; margin: 2px 0 8px; line-height: 1.4; }
 .dish-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .dish-price { font-weight: 700; }
-.dish-card.is-sold-out { opacity: 0.62; }
-.dish-card.is-sold-out .dish-photo { filter: grayscale(1); }
+.dish-card.is-sold-out { background: var(--rice); }
+.dish-card.is-sold-out .dish-photo { filter: grayscale(1); opacity: 0.6; }
+.dish-card.is-sold-out .dish-name, .dish-card.is-sold-out .dish-price { color: var(--muted); }
 .habis {
   font-family: var(--font-sign); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
   color: var(--red-deep); border: 2px solid var(--red-deep); border-radius: 4px; padding: 0 8px;
