@@ -6,8 +6,10 @@ import { subscribe } from './state.js';
 import { startSim } from './sim.js';
 import { startChannel } from './channel.js';
 import { landing } from './views/landing.js';
+import { menuPage } from './views/menu.js';
 
 addRoute('/', landing);
+addRoute('/table/:n', menuPage);
 
 subscribe(() => refresh());
 startChannel();
