@@ -29,7 +29,7 @@
   .kds-header { padding: 8px var(--gutter); }
   .kds-brand { font-size: 1.15rem; }
   .kds-clock { font-size: 1.1rem; }
-  .kds-main { padding: 10px var(--gutter) 84px; }
+  .kds-main { padding: 10px var(--gutter) 8px; }
   .kds-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
   .kds-tab { justify-content: space-between; padding: 0 12px; }
   .kds-allday { flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }

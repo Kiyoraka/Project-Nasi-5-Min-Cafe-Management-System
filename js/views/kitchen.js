@@ -160,6 +160,7 @@ export const kitchenActions = {
 export const kitchenPage = {
   title: 'Kitchen',
   surface: 'dark',
+  dock: { active: 'kitchen', dark: true },
   render() {
     return html`
       <header class="kds-header">

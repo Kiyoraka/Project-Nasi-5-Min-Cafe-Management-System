@@ -18,7 +18,7 @@
 .btn-kds:hover { background: var(--kds-line); }
 .btn-kds[aria-pressed="true"] { border-color: var(--turmeric); color: var(--turmeric); }
 
-.kds-main { padding: 12px var(--gutter) 72px; }
+.kds-main { padding: 12px var(--gutter) 8px; }
 .kds { display: grid; gap: 12px; }
 .kds-allday {
   display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px;
@@ -65,11 +65,12 @@
 .ticket-note { display: block; color: var(--turmeric); font-size: 0.88rem; padding-left: 22px; }
 .ticket-note::before { content: "· "; }
 
+/* The day's numbers: an in-flow line under the board (the dock owns the bottom edge). */
 .kds-foot {
-  position: fixed; left: 0; right: 0; bottom: 0;
-  padding: 10px var(--gutter);
+  margin: 4px var(--gutter) 0;
+  padding: 10px 12px;
   background: #0D0E10; color: var(--kds-muted);
-  border-top: 1px solid var(--kds-line);
+  border: 1px solid var(--kds-line); border-radius: var(--radius-sm);
   font-size: 0.95rem;
 }
 .kds-foot b { color: var(--kds-text); }
@@ -124,10 +125,10 @@
   font-family: var(--font-sign); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.3rem;
 }
 .live-title span { font-family: var(--font-body); font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 0.95rem; margin-left: 10px; opacity: 0.85; }
-.live { display: grid; grid-template-columns: 400px 1fr; gap: 20px; padding: 18px var(--gutter) 64px; align-items: start; }
+.live { display: grid; grid-template-columns: 400px 1fr; gap: 20px; padding: 18px var(--gutter) 8px; align-items: start; }
 .live-phone { position: sticky; top: 12px; display: grid; justify-items: center; gap: 10px; }
 .phone-frame {
-  position: relative; width: 375px; height: min(760px, calc(100vh - 200px));
+  position: relative; width: 375px; height: min(760px, calc(100vh - 110px - var(--dock-space)));
   border-radius: 44px; padding: 12px; background: #0B0C0E;
   box-shadow: 0 0 0 2px #2A2D33, 0 24px 60px rgba(0, 0, 0, 0.55);
 }

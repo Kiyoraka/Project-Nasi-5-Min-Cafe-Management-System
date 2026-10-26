@@ -22,6 +22,7 @@ function kitchenSide() {
 export const livePage = {
   title: 'See it live',
   surface: 'dark',
+  dock: { active: 'kitchen', dark: true },
   guard: () => (window.matchMedia(WIDE).matches ? null : '/kitchen'),
   render() {
     return html`
