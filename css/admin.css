@@ -103,3 +103,22 @@
   .dock, .admin-top { display: none !important; }
   .admin-main { padding: 0; }
 }
+
+/* ---------- dashboard ---------- */
+.admin-main .sign-title { font-size: 1.25rem; }
+@media (min-width: 900px) { .kpi-grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.kpi-money { font-size: 1.9rem; }
+.dash-row { display: grid; gap: 16px; }
+@media (min-width: 900px) { .dash-row { grid-template-columns: 2fr 1fr; } }
+.kitchen-now { display: grid; gap: 14px; align-content: start; border-top: 6px solid var(--kds-bg); }
+.kitchen-now-row { display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 1rem; color: var(--ink-soft); }
+.kitchen-now-row b { font-family: var(--font-sign); font-size: 2rem; color: var(--ink); margin-right: 4px; }
+.kitchen-now-row .is-late b { color: var(--late); }
+.kitchen-now-row .is-hurry b { color: #B57F00; }
+.top-dishes { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.top-dishes li { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--rule); }
+.top-dishes li b { margin-left: auto; font-family: var(--font-sign); font-size: 1.3rem; }
+.top-rank {
+  display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--enamel-red); color: var(--on-brand); font-family: var(--font-sign); font-weight: 700;
+}
