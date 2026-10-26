@@ -10,12 +10,14 @@ import { menuPage } from './views/menu.js';
 import { orderPage } from './views/order.js';
 import { todayPage } from './views/today.js';
 import { kitchenPage } from './views/kitchen.js';
+import { loginPage } from './views/login.js';
 
 addRoute('/', landing);
 addRoute('/table/:n', menuPage);
 addRoute('/order/:id', orderPage);
 addRoute('/today', todayPage);
 addRoute('/kitchen', kitchenPage);
+addRoute('/login', loginPage);
 
 subscribe(() => refresh());
 startChannel();
