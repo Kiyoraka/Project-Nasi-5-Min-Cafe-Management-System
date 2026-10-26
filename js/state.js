@@ -82,11 +82,23 @@ function buildTickets(lines, autoBumpAt) {
   }));
 }
 
+// Order numbers are shared by every open tab of the demo (same browser), so an order placed in
+// one tab never takes a number another tab already used. Storage may be blocked: fall back to ours.
+function takeOrderId() {
+  let id = STATE.nextId;
+  try {
+    id = Math.max(id, Number(localStorage.getItem('n5m-next-id')) || 0);
+    localStorage.setItem('n5m-next-id', String(id + 1));
+  } catch { /* private window or blocked storage */ }
+  STATE.nextId = id + 1;
+  return id;
+}
+
 // Create a live order. bumpAfterSeconds is when the simulated staff will bump it.
 export function createOrder({ table, lines, placedAt = Date.now(), source = 'sim', bumpAfterSeconds }, { silent = false } = {}) {
   const autoBumpAt = Math.max(placedAt + bumpAfterSeconds * SECOND, Date.now() + randomBetween(15, 45) * SECOND);
   const order = {
-    id: STATE.nextId++,
+    id: source === 'boot' ? STATE.nextId++ : takeOrderId(),
     table,
     lines: lines.map((line) => ({ ...line })),
     placedAt,
@@ -200,7 +212,7 @@ export function recall() {
   ticket.bumpedAt = null;
   ticket.autoBumpAt = Date.now() + randomBetween(25, 50) * SECOND;
   order.readyAt = null;
-  emit({ type: 'recall', orderId: order.id, station: last.station });
+  emit({ type: 'recall', orderId: order.id, station: last.station, autoBumpAt: ticket.autoBumpAt });
   notify();
   return order;
 }
@@ -328,7 +340,7 @@ export function applyRemote(event) {
   } else if (event.type === 'recall') {
     const order = orderById(event.orderId);
     const ticket = order?.tickets.find((t) => t.station === event.station);
-    if (ticket) { ticket.bumpedAt = null; order.readyAt = null; }
+    if (ticket) { ticket.bumpedAt = null; ticket.autoBumpAt = event.autoBumpAt; order.readyAt = null; }
   } else if (event.type === 'menu') {
     STATE.menu = event.menu.map((dish) => ({ ...dish }));
   } else if (event.type === 'tables') {
