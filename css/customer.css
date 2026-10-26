@@ -253,3 +253,32 @@
 .ready-line { font-size: 1.1rem; }
 .order-lines .sign-title { font-size: 1.25rem; }
 .order-lines ul { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 6px; }
+
+/* ---------- today + KPI tiles (shared with the admin dashboard) ---------- */
+.today-main { display: grid; gap: 20px; }
+.today-main .display { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+.kpi-grid { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 900px) { .kpi-grid { grid-template-columns: 1.3fr 1fr 1fr 1fr; } }
+.kpi {
+  display: grid; gap: 4px; align-content: start;
+  background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-md);
+  padding: 16px; min-width: 0;
+}
+.kpi-label { font-family: var(--font-sign); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.9rem; color: var(--royal-blue); }
+.kpi-value { font-family: var(--font-sign); font-weight: 700; font-size: 2.6rem; line-height: 1; }
+.kpi-value small { font-size: 1.3rem; }
+.kpi-text { font-size: 1.5rem; line-height: 1.1; text-transform: uppercase; overflow-wrap: anywhere; }
+.kpi-note { color: var(--muted); font-size: 0.85rem; }
+.kpi-hero { background: var(--enamel-red); border-color: var(--enamel-red); color: var(--on-brand); }
+.kpi-hero, .kpi-wide { grid-column: span 2; }
+@media (min-width: 900px) { .kpi-hero, .kpi-wide { grid-column: auto; } }
+.kpi-hero .kpi-label, .kpi-hero .kpi-note { color: rgba(255, 255, 255, 0.85); }
+.kpi-hero .kpi-value { font-size: 3.4rem; }
+.hours-card .sign-title { font-size: 1.25rem; }
+.hour-bars { display: flex; align-items: flex-end; gap: 6px; height: 180px; padding-top: 18px; }
+.hour-bar { flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
+.hour-track { flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+.hour-fill { display: block; width: 100%; max-width: 44px; background: var(--royal-blue); border-radius: 6px 6px 0 0; }
+.hour-bar:hover .hour-fill { background: var(--enamel-red); }
+.hour-count { font-size: 0.78rem; color: var(--ink-soft); }
+.hour-label { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }

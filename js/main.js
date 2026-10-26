@@ -8,10 +8,12 @@ import { startChannel } from './channel.js';
 import { landing } from './views/landing.js';
 import { menuPage } from './views/menu.js';
 import { orderPage } from './views/order.js';
+import { todayPage } from './views/today.js';
 
 addRoute('/', landing);
 addRoute('/table/:n', menuPage);
 addRoute('/order/:id', orderPage);
+addRoute('/today', todayPage);
 
 subscribe(() => refresh());
 startChannel();
