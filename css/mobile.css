@@ -1,0 +1,50 @@
+/* Nasi 5 Minit — phone pass (checked at 390 px). Loaded last so it can refine every page.
+   Layout switches that belong to one component (the admin dock, table cards) live with it. */
+
+@media (max-width: 600px) {
+  :root { --gutter: 16px; }
+
+  /* public header: shop name + three links fit one row */
+  .signboard-inner { min-height: 54px; }
+  .signboard-name { font-size: 1.3rem; padding: 2px 8px; }
+  .public-nav { gap: 12px; }
+  .public-nav a { font-size: 0.92rem; }
+  .strip { font-size: 0.85rem; }
+
+  /* landing: keep the tilted badge inside the screen edge */
+  .promise-badge { left: 6px; bottom: -12px; width: 96px; height: 96px; }
+  .promise-time { font-size: 1.8rem; }
+  .promise-label { font-size: 0.68rem; }
+  .hero .row .btn { flex: 1 1 100%; }
+  .today-card { gap: 14px; }
+  .today-big { font-size: 2.6rem; }
+  .footer-inner { flex-wrap: wrap; }
+
+  /* menu + order */
+  .dish-photo { width: 84px; height: 84px; }
+  .dish-name { font-size: 1.05rem; }
+  .cart-bar { padding: 0 14px; font-size: 1.02rem; }
+  .countdown-card, .ready-card { padding: 20px 14px; }
+
+  /* kitchen: four station tabs as a 2 x 2 grid, the all-day counts on one scrolling line */
+  .kds-header { padding: 8px var(--gutter); }
+  .kds-brand { font-size: 1.15rem; }
+  .kds-clock { font-size: 1.1rem; }
+  .kds-main { padding: 10px var(--gutter) 84px; }
+  .kds-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
+  .kds-tab { justify-content: space-between; padding: 0 12px; }
+  .kds-allday { flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  .kds-allday::-webkit-scrollbar { display: none; }
+  .ticket-grid { grid-template-columns: 1fr; gap: 10px; }
+  .ticket-table, .ticket-age { font-size: 1.35rem; }
+  .kds-foot { font-size: 0.85rem; }
+
+  /* admin: KPI numbers a size down so money fits two-up */
+  .kpi { padding: 12px; }
+  .kpi-value { font-size: 2.1rem; }
+  .kpi-money { font-size: 1.45rem; }
+  .kpi-hero .kpi-value { font-size: 2.8rem; }
+  .toolbar .btn { flex: 1 1 auto; }
+  .modal-backdrop { padding: 8px; align-items: flex-end; }
+  .modal { max-height: calc(100vh - 16px); border-radius: var(--radius-lg) var(--radius-lg) var(--radius-md) var(--radius-md); }
+}
