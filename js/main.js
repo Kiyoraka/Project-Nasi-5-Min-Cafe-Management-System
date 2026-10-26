@@ -1,8 +1,11 @@
 // Boot: register routes, then start the router.
 // Views, state and the simulation are wired in as each phase lands.
 
-import { addRoute, startRouter } from './router.js';
+import { addRoute, startRouter, refresh } from './router.js';
 import { html } from './ui.js';
+import { subscribe } from './state.js';
+import { startSim } from './sim.js';
+import { startChannel } from './channel.js';
 
 // Shell check page until the landing view arrives (Phase 3).
 const shell = {
@@ -25,4 +28,7 @@ const shell = {
 
 addRoute('/', shell);
 
+subscribe(() => refresh());
+startChannel();
 startRouter(document.getElementById('app'));
+startSim();
