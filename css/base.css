@@ -1,0 +1,258 @@
+/* Nasi 5 Minit — base tokens, resets and shared components.
+   Palette: Kedai Signboard (enamel red + royal blue on rice-white, condensed signboard caps).
+   The kitchen screen uses the dark --kds-* tokens on body[data-surface="dark"]. */
+
+:root {
+  /* light surfaces (customer + admin) */
+  --rice: #FAF6EE;
+  --paper: #FFFFFF;
+  --ink: #1B1B1F;
+  --ink-soft: #4A4A55;
+  --muted: #6B6B76;
+  --rule: #E6DFD2;
+  --rule-soft: #F0EBE1;
+
+  /* brand */
+  --enamel-red: #C21F2F;
+  --red-deep: #9C1724;
+  --royal-blue: #1E3A8A;
+  --blue-deep: #152B66;
+  --turmeric: #E8A317;   /* accent only, never text on white */
+  --on-brand: #FFFFFF;
+
+  /* kitchen (dark) */
+  --kds-bg: #131417;
+  --kds-card: #1D1F24;
+  --kds-line: #2A2D33;
+  --kds-text: #F2F2F2;
+  --kds-muted: #A3A6AD;
+
+  /* ticket states — always paired with a word and a bar, never colour alone */
+  --ok: #2FA35B;
+  --hurry: #F2A900;
+  --late: #E5383B;
+
+  /* type */
+  --font-sign: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* shape */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --raised: 0 14px 36px rgba(27, 27, 31, 0.12);
+  --focus: 0 0 0 3px rgba(30, 58, 138, 0.35);
+
+  --container: 1120px;
+  --gutter: 16px;
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--rice);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-surface="dark"] { background: var(--kds-bg); color: var(--kds-text); }
+img { max-width: 100%; display: block; }
+a { color: var(--royal-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button, input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3, h4 { margin: 0 0 0.4em; line-height: 1.15; }
+p { margin: 0 0 1em; }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: var(--radius-sm); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- layout ---------- */
+.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.section { padding-top: 32px; padding-bottom: 32px; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ---------- signboard type ---------- */
+.display, .sign {
+  font-family: var(--font-sign);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.display { font-size: clamp(2.4rem, 7vw, 4.2rem); line-height: 1; }
+.sign { font-size: 1.25rem; }
+.eyebrow {
+  font-family: var(--font-sign);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+  color: var(--royal-blue);
+}
+
+/* The red enamel signboard band: white condensed caps inside a thin painted double rule. */
+.signboard {
+  background: var(--enamel-red);
+  color: var(--on-brand);
+  border-bottom: 4px solid var(--red-deep);
+}
+.signboard-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 60px;
+}
+.signboard-name {
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 12px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 0 0 3px var(--enamel-red), inset 0 0 0 4px rgba(255, 255, 255, 0.55);
+  border-radius: 4px;
+  color: var(--on-brand);
+}
+.signboard-name:hover { text-decoration: none; }
+.strip {
+  background: var(--royal-blue);
+  color: var(--on-brand);
+  font-family: var(--font-sign);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 6px var(--gutter);
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 0 20px;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, transform 0.1s;
+}
+.btn:hover { text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--enamel-red); color: var(--on-brand); }
+.btn-primary:hover { background: var(--red-deep); }
+.btn-blue { background: var(--royal-blue); color: var(--on-brand); }
+.btn-blue:hover { background: var(--blue-deep); }
+.btn-outline { background: transparent; color: var(--royal-blue); border-color: var(--royal-blue); }
+.btn-outline:hover { background: var(--royal-blue); color: var(--on-brand); }
+.btn-ghost { background: transparent; color: var(--ink-soft); }
+.btn-ghost:hover { background: var(--rule-soft); }
+.btn-block { width: 100%; }
+.btn-sm { min-height: 36px; padding: 0 12px; font-size: 0.95rem; }
+
+/* ---------- chips ---------- */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 36px; padding: 0 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-weight: 500;
+  font-size: 0.92rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.chip[aria-pressed="true"], .chip.is-active {
+  background: var(--royal-blue); border-color: var(--royal-blue); color: var(--on-brand);
+}
+
+/* ---------- cards ---------- */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+.card-raised { box-shadow: var(--raised); border-color: transparent; }
+
+/* ---------- forms ---------- */
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 500; font-size: 0.92rem; color: var(--ink-soft); }
+.input, .select, .textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--rule);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+}
+.input:focus, .select:focus, .textarea:focus { border-color: var(--royal-blue); box-shadow: var(--focus); outline: none; }
+.field-error { color: var(--red-deep); font-size: 0.88rem; }
+
+/* ---------- modal + bottom sheet ---------- */
+.modal-backdrop, .sheet-backdrop {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(19, 20, 23, 0.55);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--gutter);
+}
+.sheet-backdrop { align-items: flex-end; padding: 0; }
+.modal {
+  width: 100%; max-width: 560px; max-height: calc(100vh - 32px); overflow: auto;
+  background: var(--paper); color: var(--ink);
+  border-radius: var(--radius-md);
+  box-shadow: var(--raised);
+}
+.sheet {
+  width: 100%; max-width: 560px; max-height: 88vh; overflow: auto;
+  background: var(--paper); color: var(--ink);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  animation: sheet-up 0.22s ease-out;
+}
+.modal-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.modal-body { padding: 16px; display: grid; gap: 14px; }
+.modal-foot { padding: 12px 16px; border-top: 1px solid var(--rule); display: flex; justify-content: flex-end; gap: 8px; }
+@keyframes sheet-up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 24px; z-index: 60;
+  transform: translateX(-50%);
+  background: var(--ink); color: var(--paper);
+  padding: 10px 18px; border-radius: var(--radius-pill);
+  box-shadow: var(--raised);
+  animation: toast-in 0.2s ease-out;
+  max-width: calc(100vw - 32px);
+}
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+/* ---------- not found ---------- */
+.not-found { text-align: center; padding-top: 64px; padding-bottom: 64px; }
+.big5 {
+  font-family: var(--font-sign); font-weight: 700; font-size: 7rem; line-height: 1;
+  color: var(--enamel-red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
