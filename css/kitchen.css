@@ -1,7 +1,7 @@
 /* Nasi 5 Minit — kitchen display (dark), shared by #/kitchen and the #/live split view. */
 
 .kds-header {
-  display: flex; align-items: center; gap: 16px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
   padding: 10px var(--gutter);
   background: #0D0E10;
   border-bottom: 3px solid var(--enamel-red);
@@ -114,3 +114,4 @@
 }
 .ticket-hint { margin: 0; padding: 6px 12px 10px; font-size: 0.75rem; color: var(--kds-muted); border-top: 1px dashed var(--kds-line); }
 @media (hover: hover) { .ticket-hint { opacity: 0; transition: opacity 0.15s; } .ticket:hover .ticket-hint, .ticket:focus-visible .ticket-hint { opacity: 1; } }
+.btn-kds[disabled] { opacity: 0.4; }

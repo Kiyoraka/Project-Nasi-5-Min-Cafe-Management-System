@@ -43,6 +43,36 @@ export function toast(message) {
   toastTimer = setTimeout(() => { el.hidden = true; }, 2400);
 }
 
+// Speak a short line to screen readers through the one live region that never repaints.
+export function announce(message) {
+  const el = document.getElementById('announcer');
+  if (!el) return;
+  el.textContent = '';
+  setTimeout(() => { el.textContent = message; }, 50);
+}
+
+// A short two-note chime for new tickets (Web Audio; the context starts on a click).
+let audio = null;
+export function chime() {
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    if (audio.state === 'suspended') audio.resume();
+    [880, 1320].forEach((freq, i) => {
+      const osc = audio.createOscillator();
+      const gain = audio.createGain();
+      const start = audio.currentTime + i * 0.16;
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(0.25, start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.3);
+      osc.connect(gain).connect(audio.destination);
+      osc.start(start);
+      osc.stop(start + 0.32);
+    });
+  } catch { /* no audio on this device */ }
+}
+
 // 8.5 -> "RM 8.50"; 2431.5 -> "RM 2,431.50"
 export function fmtRM(amount) {
   return 'RM ' + Number(amount).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

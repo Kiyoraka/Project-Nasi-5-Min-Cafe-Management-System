@@ -2,8 +2,11 @@
 // tabs with live counts, tickets in arrival order and the day's numbers along the bottom.
 // Open to everyone (no sign-in) so a restaurant owner reaches it in one tap.
 
-import { html, fmtClock, formatTime } from '../ui.js';
-import { STATE, ticketsByStation, allDayCounts, todayStats, ticketAge, ticketState, dishById, stationName, bump, markSeen } from '../state.js';
+import { html, fmtClock, formatTime, toast, announce, chime } from '../ui.js';
+import {
+  STATE, ticketsByStation, allDayCounts, todayStats, ticketAge, ticketState, dishById, stationName,
+  orderById, bump, recall, markSeen, saveSettings,
+} from '../state.js';
 import { stations } from '../data.js';
 import { icon } from './icons.js';
 import { refresh } from '../router.js';
@@ -112,9 +115,27 @@ export function tickTickets(root, now = Date.now()) {
   });
 }
 
-// New tickets flash once: after they have been on screen, they are no longer new.
+// New tickets flash once: after their first paint they are no longer new. Each new order is
+// announced to screen readers and, when the chime is on, rings once.
 export function markShown(root) {
-  root.querySelectorAll('.ticket.is-new').forEach((el) => markSeen(Number(el.dataset.order)));
+  const fresh = [...new Set([...root.querySelectorAll('.ticket.is-new')].map((el) => Number(el.dataset.order)))];
+  fresh.forEach((id) => {
+    const order = orderById(id);
+    markSeen(id);
+    if (!order) return;
+    const items = order.lines.map((line) => `${line.qty} ${dishById(line.dishId)?.name || line.dishId}`).join(', ');
+    announce(`New ticket, table ${order.table}: ${items}`);
+  });
+  if (fresh.length && STATE.settings.chime) chime();
+}
+
+export function kitchenControls() {
+  const canRecall = STATE.bumpStack.length > 0;
+  return html`
+    <button class="btn btn-sm btn-kds" data-action="toggle-chime" aria-pressed="${STATE.settings.chime ? 'true' : 'false'}"
+            title="Chime on new tickets">${icon(STATE.settings.chime ? 'bell' : 'bellOff', { size: 16 })} ${STATE.settings.chime ? 'Chime on' : 'Chime off'}</button>
+    <button class="btn btn-sm btn-kds" data-action="recall" ${canRecall ? '' : 'disabled'}
+            title="Bring back the last bumped ticket">${icon('recall', { size: 16 })} Recall</button>`;
 }
 
 export const kitchenActions = {
@@ -124,6 +145,15 @@ export const kitchenActions = {
   },
   bump(el) {
     bump(Number(el.dataset.order), el.dataset.station);
+  },
+  recall() {
+    const order = recall();
+    if (order) toast(`Ticket #${order.id} for table ${order.table} is back on the screen`);
+  },
+  'toggle-chime'() {
+    const on = !STATE.settings.chime;
+    saveSettings({ chime: on });
+    if (on) chime();     // the click starts the audio, and the cook hears what it sounds like
   },
 };
 
@@ -135,6 +165,7 @@ export const kitchenPage = {
       <header class="kds-header">
         <a class="kds-brand" href="#/">${STATE.settings.shopName} <span>· Kitchen</span></a>
         <span class="kds-clock tabular" data-clock>${formatTime(Date.now())}</span>
+        ${kitchenControls()}
         <a class="btn btn-sm btn-kds" href="#/">${icon('arrow', { size: 16 })} Shop</a>
       </header>
       <main class="kds-main">

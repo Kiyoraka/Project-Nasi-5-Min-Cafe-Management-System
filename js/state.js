@@ -66,7 +66,7 @@ function randomBetween(min, max) {
 
 // ---------- orders ----------
 // Split an order's lines into one kitchen ticket per station.
-function buildTickets(lines, autoBumpAt) {
+function buildTickets(lines, autoBumpAt, notBefore) {
   const byStation = new Map();
   lines.forEach((line) => {
     const station = dishById(line.dishId)?.station || 'rice';
@@ -78,7 +78,8 @@ function buildTickets(lines, autoBumpAt) {
     lines: stationLines,
     bumpedAt: null,
     // Drinks come out first; each station a few seconds apart so they never bump in one tick.
-    autoBumpAt: autoBumpAt - (station === 'drinks' ? 60 * SECOND : 0) + i * 4 * SECOND,
+    // Never planned before notBefore, so an order already old at page load is not cleared at once.
+    autoBumpAt: Math.max(notBefore + i * 4 * SECOND, autoBumpAt - (station === 'drinks' ? 60 * SECOND : 0) + i * 4 * SECOND),
   }));
 }
 
@@ -96,7 +97,8 @@ function takeOrderId() {
 
 // Create a live order. bumpAfterSeconds is when the simulated staff will bump it.
 export function createOrder({ table, lines, placedAt = Date.now(), source = 'sim', bumpAfterSeconds }, { silent = false } = {}) {
-  const autoBumpAt = Math.max(placedAt + bumpAfterSeconds * SECOND, Date.now() + randomBetween(15, 45) * SECOND);
+  const notBefore = Date.now() + randomBetween(15, 45) * SECOND;
+  const autoBumpAt = Math.max(placedAt + bumpAfterSeconds * SECOND, notBefore);
   const order = {
     id: source === 'boot' ? STATE.nextId++ : takeOrderId(),
     table,
@@ -105,7 +107,7 @@ export function createOrder({ table, lines, placedAt = Date.now(), source = 'sim
     readyAt: null,
     source,
     fresh: true,              // flashes once on the kitchen screen
-    tickets: buildTickets(lines, autoBumpAt),
+    tickets: buildTickets(lines, autoBumpAt, notBefore),
   };
   STATE.orders.push(order);
   if (!silent) {
