@@ -7,9 +7,11 @@ import { startSim } from './sim.js';
 import { startChannel } from './channel.js';
 import { landing } from './views/landing.js';
 import { menuPage } from './views/menu.js';
+import { orderPage } from './views/order.js';
 
 addRoute('/', landing);
 addRoute('/table/:n', menuPage);
+addRoute('/order/:id', orderPage);
 
 subscribe(() => refresh());
 startChannel();

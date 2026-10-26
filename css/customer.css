@@ -222,3 +222,34 @@
 .cart-foot p { margin: 0; font-size: 0.88rem; }
 .cart-total { display: flex; justify-content: space-between; font-size: 1.15rem; }
 .cart-total strong { font-family: var(--font-sign); font-size: 1.5rem; }
+
+/* ---------- order status ---------- */
+.order-main { max-width: 640px; padding-top: 20px; padding-bottom: 24px; display: grid; gap: 16px; }
+.tracker { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); position: relative; }
+.tracker::before { content: ""; position: absolute; top: 15px; left: 16%; right: 16%; height: 3px; background: var(--rule); }
+.track-step { display: grid; justify-items: center; gap: 6px; position: relative; text-align: center; }
+.track-dot {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--paper); border: 3px solid var(--rule); color: var(--on-brand);
+}
+.track-step.is-done .track-dot { background: var(--ok); border-color: var(--ok); }
+.track-step.is-current .track-dot { border-color: var(--royal-blue); box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.15); }
+.track-label { font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); }
+.countdown-card, .ready-card {
+  background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-lg);
+  padding: 24px 20px; text-align: center; border-top: 6px solid var(--enamel-red);
+}
+.countdown { font-family: var(--font-sign); font-weight: 700; font-size: clamp(4.5rem, 22vw, 7rem); line-height: 1; margin: 4px 0 14px; color: var(--ink); }
+.countdown-card.is-over .countdown { color: var(--red-deep); }
+.promise-bar { height: 12px; border-radius: var(--radius-pill); background: var(--rule-soft); overflow: hidden; }
+.promise-bar span { display: block; height: 100%; background: var(--enamel-red); border-radius: inherit; transition: width 0.9s linear; }
+.station-progress { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; color: var(--ink-soft); font-size: 0.92rem; }
+.station-progress li { display: inline-flex; align-items: center; gap: 6px; }
+.station-progress li.is-done { color: var(--ok); font-weight: 600; }
+.ready-card { border-top-color: var(--ok); }
+.ready-icon { display: inline-grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--ok); color: var(--on-brand); }
+.ready-card .display { color: var(--ok); margin-top: 8px; }
+.ready-line { font-size: 1.1rem; }
+.order-lines .sign-title { font-size: 1.25rem; }
+.order-lines ul { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 6px; }
